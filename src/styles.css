@@ -1,0 +1,968 @@
+:root {
+  --ink: #111715;
+  --muted: #6f685e;
+  --paper: #fffaf0;
+  --paper-strong: #f7f0e2;
+  --line: #e6dcc8;
+  --gold: #b67a14;
+  --gold-dark: #8c5c0d;
+  --bluegray: #344357;
+  --soft-blue: #eef3f4;
+  --shadow: 0 24px 80px rgba(33, 26, 18, 0.12);
+  --radius: 8px;
+  color: var(--ink);
+  background: var(--paper);
+  font-family:
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo,
+    sans-serif;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(199, 152, 70, 0.12), transparent 28rem),
+    linear-gradient(180deg, #fffdf8 0%, var(--paper) 40%, #fbf5e9 100%);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.28;
+  background-image:
+    linear-gradient(rgba(43, 35, 23, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 35, 23, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, #000, transparent 75%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(182, 122, 20, 0.14);
+  background: rgba(255, 250, 240, 0.88);
+  backdrop-filter: blur(18px);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1280px, calc(100% - 64px));
+  min-height: 82px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoMark {
+  position: relative;
+  width: 55px;
+  height: 38px;
+  flex: 0 0 auto;
+}
+
+.logoMark span {
+  position: absolute;
+  top: 3px;
+  width: 29px;
+  height: 34px;
+  border: 6px solid var(--gold-dark);
+  border-radius: 50%;
+  transform: rotate(-14deg);
+}
+
+.logoMark span:first-child {
+  left: 4px;
+}
+
+.logoMark span:last-child {
+  right: 4px;
+  border-color: #c49334;
+  transform: rotate(14deg);
+}
+
+.logoText {
+  display: grid;
+  gap: 2px;
+}
+
+.logoText strong {
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: clamp(18px, 2vw, 26px);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.logoText small {
+  color: #4a4034;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: #111715;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+nav a {
+  padding: 10px 0;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  border-color: var(--gold);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.86fr) minmax(520px, 1.3fr);
+  align-items: center;
+  width: min(1280px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 56px 0 22px;
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 2;
+  padding: 42px 0 58px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--gold-dark);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.hero h1,
+.blogHero h1 {
+  margin: 0;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: clamp(38px, 5.4vw, 72px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.38;
+}
+
+.lead {
+  max-width: 560px;
+  margin: 26px 0 28px;
+  color: #4e463d;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 2;
+}
+
+.button,
+.quoteForm button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: linear-gradient(180deg, #c88c23, #a66a0c);
+  box-shadow: 0 16px 34px rgba(160, 96, 8, 0.24);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.button:hover,
+.quoteForm button:hover {
+  transform: translateY(-1px);
+}
+
+.heroImage {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+  border-radius: 0 0 0 160px;
+  box-shadow: var(--shadow);
+}
+
+.heroImage::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  background: linear-gradient(90deg, var(--paper) 0%, rgba(255, 250, 240, 0) 34%);
+}
+
+.heroImage img {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  object-fit: cover;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: min(1180px, calc(100% - 64px));
+  margin: -28px auto 42px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 253, 248, 0.94);
+  box-shadow: 0 18px 48px rgba(46, 35, 18, 0.1);
+}
+
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 118px;
+  padding: 24px 28px;
+  border-right: 1px solid var(--line);
+}
+
+.statCard:last-child {
+  border-right: 0;
+}
+
+.statCard svg,
+.detailCard svg,
+.concernCard svg {
+  color: var(--gold);
+  flex: 0 0 auto;
+  stroke-width: 1.8;
+}
+
+.statCard span,
+.detailCard span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.statCard strong {
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: clamp(30px, 3vw, 43px);
+  line-height: 1;
+}
+
+.statCard small {
+  font-size: 22px;
+}
+
+.section {
+  width: min(1200px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 46px 0;
+}
+
+.sectionTitle {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.sectionTitle > span {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--gold-dark);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.sectionTitle h2 {
+  margin: 0;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: clamp(28px, 3vw, 43px);
+  line-height: 1.55;
+}
+
+.sectionTitle p {
+  margin: 16px auto 0;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.concernGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.concernCard,
+.detailCard,
+.blogSide,
+.caseCard,
+.postCard,
+.featuredPost,
+.flavorBox,
+.quoteForm,
+.estimateIntro {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 253, 248, 0.82);
+  box-shadow: 0 10px 34px rgba(38, 28, 12, 0.06);
+}
+
+.concernCard {
+  min-height: 178px;
+  padding: 26px 24px;
+}
+
+.concernCard h3 {
+  min-height: 58px;
+  margin: 16px 0 10px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.concernCard p,
+.caseCard p,
+.postCard p,
+.featuredPost p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.solutionPanel {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 26px;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fffdf8;
+  box-shadow: var(--shadow);
+}
+
+.solutionCopy {
+  padding: 42px;
+}
+
+.solutionCopy h3,
+.flavorBox h3 {
+  margin: 0 0 20px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 28px;
+  line-height: 1.55;
+}
+
+.solutionCopy ul,
+.featureText ul {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.solutionCopy li,
+.featureText li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #3b332a;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.solutionCopy svg,
+.featureText svg {
+  margin-top: 3px;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.solutionPanel img {
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+}
+
+.features {
+  width: min(1220px, calc(100% - 64px));
+}
+
+.featureBlock {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 28px;
+  align-items: stretch;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fffdf8;
+  box-shadow: var(--shadow);
+}
+
+.featureBlock.flip {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.featureBlock.flip .featureText {
+  order: 2;
+}
+
+.featureBlock.flip img {
+  order: 1;
+}
+
+.featureText {
+  padding: 46px;
+}
+
+.featureNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 40px;
+  margin-bottom: 18px;
+  border-radius: 4px;
+  color: #fff;
+  background: linear-gradient(180deg, #c88c23, #9a610b);
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.featureText h3 {
+  margin: 0 0 18px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: clamp(30px, 3.4vw, 48px);
+}
+
+.featureText p {
+  margin: 0 0 24px;
+  color: #51493f;
+  font-size: 16px;
+  line-height: 1.95;
+}
+
+.featureBlock img {
+  width: 100%;
+  height: 100%;
+  min-height: 390px;
+  object-fit: cover;
+}
+
+.caseGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.caseCard {
+  overflow: hidden;
+}
+
+.caseCard img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.caseCard div {
+  padding: 18px;
+}
+
+.caseCard span {
+  display: block;
+  margin-top: 10px;
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.caseCard span:first-child {
+  margin-top: 0;
+}
+
+.caseCard h3 {
+  margin: 4px 0 10px;
+  font-size: 18px;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
+}
+
+.detailCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.detailCard {
+  min-height: 122px;
+  padding: 24px;
+}
+
+.detailCard strong {
+  display: block;
+  margin-top: 10px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 25px;
+}
+
+.flavorBox {
+  overflow: hidden;
+  padding-bottom: 24px;
+}
+
+.flavorBox img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.flavorBox h3 {
+  margin: 24px 24px 16px;
+  font-size: 24px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 24px;
+}
+
+.chips span,
+.chips label span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid #dccdb7;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #453d34;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.estimate {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  gap: 20px;
+  padding-bottom: 72px;
+}
+
+.estimateIntro {
+  align-self: start;
+  padding: 30px;
+  background: linear-gradient(180deg, #fffaf0, #f3ead8);
+}
+
+.estimateIntro h2 {
+  margin: 0 0 16px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 28px;
+  line-height: 1.55;
+}
+
+.estimateIntro p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.phoneBox {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+  padding: 18px;
+  border: 1px solid #e1cda7;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.phoneBox svg {
+  color: var(--gold);
+}
+
+.phoneBox span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.phoneBox strong {
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 28px;
+}
+
+.quoteForm {
+  padding: 28px;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0 0 24px;
+  border: 0;
+}
+
+legend,
+.fieldGrid label {
+  display: block;
+  margin-bottom: 12px;
+  color: #312a22;
+  font-weight: 900;
+}
+
+.selectable {
+  padding: 0;
+}
+
+.selectable label {
+  cursor: pointer;
+}
+
+.selectable input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.selectable input:checked + span {
+  border-color: var(--gold);
+  color: #fff;
+  background: var(--gold);
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.fieldGrid input,
+.fieldGrid textarea {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid #d9cdbb;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.fieldGrid textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.fieldGrid label:last-child {
+  grid-column: 1 / -1;
+}
+
+.quoteForm button {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1280px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 34px 0 52px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.blogHero {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 36px;
+  align-items: center;
+  width: min(1280px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 54px 0 36px;
+}
+
+.blogHero p:last-child {
+  max-width: 540px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.blogHero img {
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.blogLayout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+}
+
+.featuredPost {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 0;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.featuredPost img {
+  width: 100%;
+  height: 100%;
+  min-height: 290px;
+  object-fit: cover;
+}
+
+.featuredPost div {
+  padding: 34px;
+}
+
+.featuredPost span,
+.postCard span {
+  color: var(--gold-dark);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.featuredPost h2 {
+  margin: 12px 0 16px;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 32px;
+  line-height: 1.55;
+}
+
+.featuredPost a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--gold-dark);
+  font-weight: 900;
+}
+
+.postGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.postCard {
+  overflow: hidden;
+}
+
+.postCard img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.postCard div {
+  padding: 20px;
+}
+
+.postCard h3 {
+  margin: 10px 0 0;
+  font-family:
+    "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 21px;
+  line-height: 1.55;
+}
+
+.blogSide {
+  align-self: start;
+  padding: 24px;
+}
+
+.blogSide h2 {
+  margin: 0 0 18px;
+  font-size: 18px;
+}
+
+.blogSide a {
+  display: block;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  color: #463c31;
+  font-weight: 800;
+}
+
+@media (max-width: 1040px) {
+  .hero,
+  .blogHero,
+  .solutionPanel,
+  .featureBlock,
+  .featureBlock.flip,
+  .productGrid,
+  .estimate,
+  .blogLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .featureBlock.flip .featureText,
+  .featureBlock.flip img {
+    order: initial;
+  }
+
+  .stats,
+  .concernGrid,
+  .caseGrid,
+  .detailCards,
+  .postGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heroImage {
+    min-height: 420px;
+    border-radius: var(--radius);
+  }
+
+  .heroImage img {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 720px) {
+  .headerInner,
+  .hero,
+  .section,
+  .features,
+  .blogHero,
+  .footer {
+    width: min(100% - 28px, 1280px);
+  }
+
+  .headerInner {
+    min-height: 72px;
+  }
+
+  .logoText small {
+    display: none;
+  }
+
+  .logoText strong {
+    font-size: 17px;
+  }
+
+  .logoMark {
+    width: 42px;
+    height: 31px;
+  }
+
+  .logoMark span {
+    width: 22px;
+    height: 28px;
+    border-width: 5px;
+  }
+
+  .hero {
+    padding-top: 26px;
+  }
+
+  .heroCopy {
+    padding: 20px 0 10px;
+  }
+
+  .hero h1,
+  .blogHero h1 {
+    font-size: 36px;
+  }
+
+  .stats,
+  .concernGrid,
+  .caseGrid,
+  .detailCards,
+  .postGrid,
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    width: min(100% - 28px, 1180px);
+    margin-top: 16px;
+  }
+
+  .statCard {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .statCard:last-child {
+    border-bottom: 0;
+  }
+
+  .solutionCopy,
+  .featureText,
+  .featuredPost div,
+  .quoteForm,
+  .estimateIntro {
+    padding: 24px;
+  }
+
+  .featuredPost {
+    grid-template-columns: 1fr;
+  }
+}
