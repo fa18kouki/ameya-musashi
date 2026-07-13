@@ -17,23 +17,23 @@ import {
 import "./styles.css";
 
 const assets = {
-  hero: "/assets/01-lp-hero-restaurant-event.png",
-  comparison: "/assets/02-product-comparison-candy-wrapper.png",
-  speed: "/assets/03-feature-speed-delivery.png",
-  customize: "/assets/04-feature-customization.png",
-  restaurant: "/assets/05-case-restaurant.png",
-  event: "/assets/06-case-event.png",
-  hotel: "/assets/07-case-hotel.png",
-  amusement: "/assets/08-case-amusement.png",
-  onsen: "/assets/09-case-onsen-heatstroke.png",
-  flavor: "/assets/10-product-flavor-lineup.png",
-  blogHero: "/assets/11-blog-hero.png",
-  blogRestaurant: "/assets/12-blog-thumb-restaurant.png",
-  blogNovelty: "/assets/13-blog-thumb-novelty.png",
-  blogCompare: "/assets/14-blog-thumb-candy-vs-wrapper.png",
-  blogEvent: "/assets/15-blog-thumb-event.png",
-  blogDesign: "/assets/16-blog-thumb-design-reproducibility.png",
-  blogLot: "/assets/17-blog-thumb-small-lot-estimate.png",
+  hero: "/assets/01-lp-hero-restaurant-event.webp",
+  comparison: "/assets/02-product-comparison-candy-wrapper.webp",
+  speed: "/assets/03-feature-speed-delivery.webp",
+  customize: "/assets/04-feature-customization.webp",
+  restaurant: "/assets/05-case-restaurant.webp",
+  event: "/assets/06-case-event.webp",
+  hotel: "/assets/07-case-hotel.webp",
+  amusement: "/assets/08-case-amusement.webp",
+  onsen: "/assets/09-case-onsen-heatstroke.webp",
+  flavor: "/assets/10-product-flavor-lineup.webp",
+  blogHero: "/assets/11-blog-hero.webp",
+  blogRestaurant: "/assets/12-blog-thumb-restaurant.webp",
+  blogNovelty: "/assets/13-blog-thumb-novelty.webp",
+  blogCompare: "/assets/14-blog-thumb-candy-vs-wrapper.webp",
+  blogEvent: "/assets/15-blog-thumb-event.webp",
+  blogDesign: "/assets/16-blog-thumb-design-reproducibility.webp",
+  blogLot: "/assets/17-blog-thumb-small-lot-estimate.webp",
 };
 
 function Logo() {
@@ -207,14 +207,12 @@ function HomePage() {
           <div className="heroCopy">
             <p className="eyebrow">販促・おもてなし・記念品を、もっと印象的に。</p>
             <h1>
-              小さな一粒が、
+              オーダーメイド手作り飴・オリジナル包装飴で、
               <br />
-              大きな印象に。
-              <br />
-              心にのこり続ける贈り物
+              記憶に残るおもてなしを。
             </h1>
             <p className="lead">
-              オーダーメイド手作り飴・オリジナル包装飴で、お店やブランドの記憶に残る小さなおもてなしを形にします。
+              販促・ノベルティ・おもてなしに使えるオーダーメイド飴。最小2,500粒〜、最短2週間納品。飲食店・ホテル・イベント会社に選ばれています。
             </p>
             <Button>見積もり・相談をする</Button>
           </div>
@@ -350,6 +348,7 @@ function HomePage() {
           </div>
         </section>
 
+        <FaqSection />
         <EstimateForm />
       </main>
       <Footer />
@@ -378,7 +377,97 @@ function FeatureBlock({ number, title, image, points, children, flip = false }) 
   );
 }
 
+const faqs = [
+  {
+    q: "最小ロットは何粒からですか？",
+    a: "業界最小水準の2,500粒からご注文いただけます。小ロットでもオーダーメイドに対応しています。",
+  },
+  {
+    q: "納期はどのくらいかかりますか？",
+    a: "ご注文確定後、最短2週間での納品を目指しています。イベント日が決まっている場合はお早めにお問い合わせください。",
+  },
+  {
+    q: "飴本体への印刷と包装への印刷はどう違いますか？",
+    a: "飴本体への印刷は手作りならではのにじみや潰れも味わいになります。包装への印刷はロゴやメッセージをより鮮明に表現できます。用途に合わせてご提案します。",
+  },
+  {
+    q: "フレーバーは選べますか？",
+    a: "りんご・オレンジ・グレープ・ピーチ・レモン・西洋梨・ストロベリー・ライチ・うめ・しそ・抹茶・コーラ・サイダーの全13種類からお選びいただけます。",
+  },
+  {
+    q: "送料はかかりますか？",
+    a: "一括納品の場合は送料無料でお届けします。詳細はお見積もり時にご確認ください。",
+  },
+  {
+    q: "デザインのデータは自分で用意する必要がありますか？",
+    a: "データをお持ちでない場合もご相談ください。デザインのご提案から対応しています。",
+  },
+];
+
+function FaqSection() {
+  const [open, setOpen] = React.useState(null);
+  return (
+    <section className="section faq" id="faq">
+      <SectionTitle kicker="FAQ" title="よくあるご質問" />
+      <div className="faqList">
+        {faqs.map((item, i) => (
+          <div key={i} className={`faqItem${open === i ? " open" : ""}`}>
+            <button
+              className="faqQ"
+              onClick={() => setOpen(open === i ? null : i)}
+              aria-expanded={open === i}
+            >
+              <span>{item.q}</span>
+              <ChevronRight size={18} className="faqIcon" />
+            </button>
+            {open === i && <p className="faqA">{item.a}</p>}
+          </div>
+        ))}
+      </div>
+      <p className="faqMore">
+        その他のご質問は<a href="#estimate">お問い合わせフォーム</a>からお気軽にどうぞ。
+      </p>
+    </section>
+  );
+}
+
 function EstimateForm() {
+  const [status, setStatus] = React.useState("idle"); // idle | sending | done | error
+  const [selections, setSelections] = React.useState({});
+
+  const toggleOption = (group, option) => {
+    setSelections((prev) => {
+      const current = prev[group] || [];
+      return {
+        ...prev,
+        [group]: current.includes(option)
+          ? current.filter((o) => o !== option)
+          : [...current, option],
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    const form = e.target;
+    const data = new FormData(form);
+    // チェックボックスの選択内容を文字列として追加
+    Object.entries(selections).forEach(([group, opts]) => {
+      if (opts.length > 0) data.append(group, opts.join("、"));
+    });
+    try {
+      const res = await fetch("https://formspree.io/f/xyzgpwkj", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      setStatus(res.ok ? "done" : "error");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section className="section estimate" id="estimate">
       <div className="estimateIntro">
@@ -392,43 +481,63 @@ function EstimateForm() {
           </div>
         </div>
       </div>
-      <form className="quoteForm">
-        {formGroups.map((group) => (
-          <fieldset key={group.label}>
-            <legend>{group.label}</legend>
-            <div className="chips selectable">
-              {group.options.map((option) => (
-                <label key={option}>
-                  <input type="checkbox" />
-                  <span>{option}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-        ))}
-        <div className="fieldGrid">
-          <label>
-            会社名
-            <input placeholder="例）株式会社 飴屋MUSASHI" />
-          </label>
-          <label>
-            お名前
-            <input placeholder="例）山田 太郎" />
-          </label>
-          <label>
-            メールアドレス
-            <input placeholder="例）info@example.jp" />
-          </label>
-          <label>
-            ご要望・ご質問
-            <textarea placeholder="用途や納期、検討中の内容をご記入ください" />
-          </label>
+      {status === "done" ? (
+        <div className="formDone">
+          <Check size={40} />
+          <h3>送信が完了しました</h3>
+          <p>1営業日以内にご連絡いたします。</p>
         </div>
-        <button type="button">
-          <Mail size={18} />
-          見積もりを依頼する / 相談内容を送信する
-        </button>
-      </form>
+      ) : (
+        <form className="quoteForm" onSubmit={handleSubmit}>
+          {/* ハニーポット（スパム対策） */}
+          <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
+          {formGroups.map((group) => (
+            <fieldset key={group.label}>
+              <legend>{group.label}</legend>
+              <div className="chips selectable">
+                {group.options.map((option) => (
+                  <label key={option} className={(selections[group.label] || []).includes(option) ? "selected" : ""}>
+                    <input
+                      type="checkbox"
+                      checked={(selections[group.label] || []).includes(option)}
+                      onChange={() => toggleOption(group.label, option)}
+                    />
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+          <div className="fieldGrid">
+            <label>
+              会社名
+              <input name="company" placeholder="例）株式会社 飴屋MUSASHI" />
+            </label>
+            <label>
+              お名前 <span className="required">必須</span>
+              <input name="name" required placeholder="例）山田 太郎" />
+            </label>
+            <label>
+              メールアドレス <span className="required">必須</span>
+              <input name="email" type="email" required placeholder="例）info@example.jp" />
+            </label>
+            <label>
+              ご要望・ご質問
+              <textarea name="message" placeholder="用途や納期、検討中の内容をご記入ください" />
+            </label>
+          </div>
+          <p className="privacyNote">
+            送信することで<a href="/privacy">プライバシーポリシー</a>に同意したものとみなします。
+          </p>
+          <button type="submit" disabled={status === "sending"}>
+            <Mail size={18} />
+            {status === "sending" ? "送信中…" : "見積もりを依頼する / 相談内容を送信する"}
+          </button>
+          {status === "error" && (
+            <p className="formError">送信に失敗しました。お手数ですがお電話にてご連絡ください。</p>
+          )}
+        </form>
+      )}
     </section>
   );
 }
@@ -524,6 +633,13 @@ function Footer() {
     <footer className="footer">
       <Logo />
       <p>飴の力で、想いをつなぐ。</p>
+      <nav className="footerNav" aria-label="フッターリンク">
+        <a href="/blog">ブログ</a>
+        <a href="#faq">FAQ</a>
+        <a href="#estimate">お問い合わせ</a>
+        <a href="/privacy">プライバシーポリシー</a>
+      </nav>
+      <p className="footerCopy">&copy; {new Date().getFullYear()} 飴屋MUSASHI</p>
     </footer>
   );
 }
