@@ -453,14 +453,24 @@ function EstimateForm() {
     const form = e.target;
     const data = new FormData(form);
     // チェックボックスの選択内容を文字列として追加
+    const quantityParts = [];
     Object.entries(selections).forEach(([group, opts]) => {
-      if (opts.length > 0) data.append(group, opts.join("、"));
+      if (opts.length > 0) quantityParts.push(`${group}：${opts.join("、")}`);
     });
+    const payload = {
+      name: data.get("name") || "",
+      company: data.get("company") || "",
+      email: data.get("email") || "",
+      phone: data.get("phone") || "",
+      quantity: quantityParts.join(" / "),
+      message: data.get("message") || "",
+      _honeypot: data.get("_gotcha") || "",
+    };
     try {
-      const res = await fetch("https://formspree.io/f/xyzgpwkj", {
+      const res = await fetch("https://ameya-musashi-contact.k-kanno.workers.dev", {
         method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
       setStatus(res.ok ? "done" : "error");
     } catch {
