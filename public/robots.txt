@@ -23,4 +23,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://ameya-musashi.pages.dev/sitemap.xml
+Sitemap: https://ameya-musashi.jp/sitemap.xml

@@ -9,7 +9,7 @@
 import fs from "fs";
 import path from "path";
 
-const SITE_URL = "https://ameya-musashi.pages.dev";
+const SITE_URL = "https://ameya-musashi.jp";
 const SITE_NAME = "飴屋MUSASHI";
 const DIST = path.resolve("dist");
 
